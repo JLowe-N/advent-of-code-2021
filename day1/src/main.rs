@@ -4,7 +4,7 @@ use std::fs;
 fn main() {
     let args: Vec<String> = env::args().collect();
 
-    let config = parse_config(&args);
+    let config = Config::new(&args);
     println!("{:?}", args);
     println!("In the file {}", config.filename);
 
@@ -18,8 +18,10 @@ struct Config {
     filename: String,
 }
 
-fn parse_config(args: &[String]) -> Config {
-    let filename = args[1].clone();
+impl Config {
+    fn new(args: &[String]) -> Config {
+        let filename = args[1].clone();
 
-    Config { filename }
+        Config { filename }
+    }
 }
