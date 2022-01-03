@@ -1,7 +1,7 @@
 use std::env;
 use std::process;
 
-use day1_part1::Config;
+use day2_part1::Config;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -11,7 +11,7 @@ fn main() {
         process::exit(1);
     });
 
-    if let Err(e) = day1_part1::run(config) {
+    if let Err(e) = day2_part1::run(config) {
         println!("Application error: {}", e);
 
         process::exit(1);
