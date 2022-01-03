@@ -11,11 +11,28 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let reader = BufReader::new(file);
 
     // Stream file line by line using lines() iterator
+    let mut first = 0;
+    let mut second = 0;
+    let mut num_increases: u32 = 0;
     for (index, line) in reader.lines().enumerate() {
         let line = line.unwrap(); // ignores errors
-                                  // do useful stuff
-        println!("{}. {}", index + 1, line);
+        if index == 0 {
+            first = line.parse().unwrap();
+        } else if index == 1 {
+            second = line.parse().unwrap();
+            if second > first {
+                num_increases += 1
+            };
+        } else {
+            first = second;
+            second = line.parse().unwrap();
+            if second > first {
+                num_increases += 1
+            };
+        }
     }
+
+    println!("Depth increased {} time(s).", num_increases);
 
     Ok(())
 }
@@ -33,4 +50,10 @@ impl Config {
 
         Ok(Config { filename })
     }
+}
+
+struct DepthTracker {
+    previous_value: i32,
+    next_value: i32,
+    num_increases: i32,
 }
